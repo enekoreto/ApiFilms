@@ -8,44 +8,55 @@ namespace ApiFilms.Repository
     {
         private readonly ApplicationDBContext _db;
 
+        public RepositoryCategory(ApplicationDBContext db)
+        {
+            _db = db;
+        }
+
         public bool CreateCategory(Category category)
         {
-            throw new NotImplementedException();
+            category.CreatedDate = DateTime.Now;
+            _db.Category.Add(category);
+            return Save();
         }
 
         public bool DeleteCategory(int CategoryId)
         {
-            throw new NotImplementedException();
+            _db.Category.Remove(GetCategory(CategoryId));
+            return Save();
         }
 
         public bool ExistsCategory(int Id)
         {
-            throw new NotImplementedException();
+            return _db.Category.Any(x => x.Id == Id); //x represents the category
         }
 
         public bool ExistsCategory(string Name)
         {
-            throw new NotImplementedException();
+            bool value = _db.Category.Any(x => x.Name.ToLower().Trim() == Name.ToLower().Trim());
+            return value;
         }
 
         public ICollection<Category> GetCategories()
         {
-            throw new NotImplementedException();
+            return _db.Category.OrderBy(c => c.Name).ToList();
         }
 
         public Category GetCategory(int CategoryId)
         {
-            throw new NotImplementedException();
+            return _db.Category.FirstOrDefault(x => x.Id == CategoryId);
         }
 
-        public bool save()
+        public bool Save()
         {
-            throw new NotImplementedException();
+            return _db.SaveChanges() > 0;
         }
 
         public bool UpdateCategory(Category category)
         {
-            throw new NotImplementedException();
+            category.CreatedDate = DateTime.Now;
+            _db.Category.Update(category);
+            return Save();
         }
     }
 }

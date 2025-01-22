@@ -1,0 +1,74 @@
+# Ignore build output
+bin/
+obj/
+
+# Rider-specific files
+.idea/
+.idea_modules/
+
+# User-specific files
+*.user
+*.suo
+
+# Logs
+*.log
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Environment variables
+.env
+
+# NuGet packages
+*.nupkg
+packages/
+
+# Backup files
+*.bak
+*.swp
+
+# Generated files
+*.generated.cs
+
+# Resharper settings
+_ReSharper.Caches/
+
+# Temporary files
+*.tmp
+*.temp
+*.~*
+
+# Coverage results
+coverage/
+*.coverage
+*.coveragexml
+*.lcov
+
+# Database files
+*.mdf
+*.ldf
+
+# Rider run configurations
+.idea/workspace.xml
+.idea/tasks.xml
+
+# Rider cache files
+.idea/.idea.*
+.idea/.name
+.idea/.workspace.*
+
+# Rider plugin files
+.idea/plugins/
+.idea/modules/
+
+# Exclude compiled DLLs or EXEs
+*.dll
+*.exe
+
+# Exclude Rider-related metadata
+.idea/misc.xml
+.idea/modules.xml
+.idea/dictionaries
+.idea/workspace.xml
+.idea/workspace.*

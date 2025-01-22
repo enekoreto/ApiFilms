@@ -11,6 +11,6 @@ namespace ApiFilms.Repository.IRepository
         bool CreateCategory(Category category);
         bool UpdateCategory(Category category);
         bool DeleteCategory(int CategoryId);
-        bool save();
+        bool Save();
     }
 }
