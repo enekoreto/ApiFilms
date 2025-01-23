@@ -88,5 +88,33 @@ namespace ApiFilms.Controllers
             
             return CreatedAtRoute("GetCategory", new {categoryId = category.Id}, category);
         }
+        
+        [HttpPatch("{categoryId:int}", Name = "UpdateCategory")] //patch is used to update the data
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        //FromBody means that the attribute is taken from the body of the HTTP request
+        public IActionResult UpdateCategory(int categoryId, [FromBody] CategoryDTO categoryDTO) //Receives DTO because the client side only manages the DTO
+        {
+            if (!ModelState.IsValid == null)
+            {
+                return BadRequest();
+            }
+
+            if (categoryDTO == null || categoryId != categoryDTO.Id)
+            {
+                return BadRequest();
+            }
+            
+            var category = _mapper.Map<Category>(categoryDTO); //maps from categoryDTO to category
+
+            if (!_ctRepo.UpdateCategory(category))
+            {
+                ModelState.AddModelError("", $"Something went wrong updating the category {category.Name}");
+                return StatusCode(500, ModelState);
+            }
+            
+            return NoContent(); //NoContent is returned when an update fails
+        }
     }
 }
