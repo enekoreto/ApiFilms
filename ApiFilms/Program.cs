@@ -1,4 +1,7 @@
 using ApiFilms.Data;
+using ApiFilms.FilmMapper;
+using ApiFilms.Repository;
+using ApiFilms.Repository.IRepository;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +13,12 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// Add repository
+builder.Services.AddScoped<IRespositoryCategory, RepositoryCategory>();
+
+//Add AutoMapper
+builder.Services.AddAutoMapper(typeof(FilmMapper));
 
 var app = builder.Build();
 
