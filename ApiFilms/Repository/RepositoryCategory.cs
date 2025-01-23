@@ -55,7 +55,13 @@ namespace ApiFilms.Repository
         public bool UpdateCategory(Category category)
         {
             category.CreatedDate = DateTime.Now;
-            _db.Category.Update(category);
+            //Fixing the PUT problem
+            var existingCategory = _db.Category.Find(category.Id);
+            if(existingCategory != null)
+                _db.Entry(existingCategory).CurrentValues.SetValues(category);
+            else
+                _db.Category.Update(category);
+            
             return Save();
         }
     }

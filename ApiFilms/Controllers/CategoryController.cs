@@ -89,12 +89,13 @@ namespace ApiFilms.Controllers
             return CreatedAtRoute("GetCategory", new {categoryId = category.Id}, category);
         }
         
-        [HttpPatch("{categoryId:int}", Name = "UpdateCategory")] //patch is used to update the data
+        [HttpPatch("{categoryId:int}", Name = "UpdatePatchCategory")] //patch is used to update the data
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         //FromBody means that the attribute is taken from the body of the HTTP request
-        public IActionResult UpdateCategory(int categoryId, [FromBody] CategoryDTO categoryDTO) //Receives DTO because the client side only manages the DTO
+        public IActionResult UpdatePatchCategory(int categoryId, [FromBody] CategoryDTO categoryDTO) //Receives DTO because the client side only manages the DTO
         {
             if (!ModelState.IsValid == null)
             {
@@ -111,6 +112,63 @@ namespace ApiFilms.Controllers
             if (!_ctRepo.UpdateCategory(category))
             {
                 ModelState.AddModelError("", $"Something went wrong updating the category {category.Name}");
+                return StatusCode(500, ModelState);
+            }
+            
+            return NoContent(); //NoContent is returned when an update fails
+        }
+        
+        [HttpPut("{categoryId:int}", Name = "UpdatePutCategory")] //patch is used to update the data
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        //FromBody means that the attribute is taken from the body of the HTTP request
+        public IActionResult UpdatePutCategory(int categoryId, [FromBody] CategoryDTO categoryDTO) //Receives DTO because the client side only manages the DTO
+        {
+            if (!ModelState.IsValid == null)
+            {
+                return BadRequest();
+            }
+
+            if (categoryDTO == null || categoryId != categoryDTO.Id)
+            {
+                return BadRequest();
+            }
+            
+            var existingCategory = _ctRepo.GetCategory(categoryId);
+            if(existingCategory == null)
+                return NotFound($"Category with id {categoryId} not found");
+                
+            var category = _mapper.Map<Category>(categoryDTO); //maps from categoryDTO to category
+
+            if (!_ctRepo.UpdateCategory(category))
+            {
+                ModelState.AddModelError("", $"Something went wrong updating the category {category.Name}");
+                return StatusCode(500, ModelState);
+            }
+            
+            return NoContent(); //NoContent is returned when an update fails
+        }
+        
+        [HttpDelete("{categoryId:int}", Name = "UpdatePutCategory")] //patch is used to update the data
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        //FromBody means that the attribute is taken from the body of the HTTP request
+        public IActionResult DeleteCategory(int categoryId) //Receives DTO because the client side only manages the DTO
+        {
+            if (!_ctRepo.ExistsCategory(categoryId))
+                return NotFound($"Category with id {categoryId} not found");
+            
+            var category = _ctRepo.GetCategory(categoryId);
+
+            if (!_ctRepo.DeleteCategory(categoryId))
+            {
+                ModelState.AddModelError("", $"Something went wrong deleting the category {category.Name}");
                 return StatusCode(500, ModelState);
             }
             
