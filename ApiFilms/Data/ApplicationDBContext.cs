@@ -12,5 +12,6 @@ namespace ApiFilms.Data
 
         //All models need to be passed here
         public DbSet<Category> Category { get; set; }
+        public DbSet<Category> Film { get; set; }
     }
 }
