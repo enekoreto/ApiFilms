@@ -15,7 +15,7 @@ namespace ApiFilms.Repository
 
         public bool ExistsFilm(string name)
         {
-            throw new NotImplementedException();
+            return _db.Film.Any(x => x.Name.ToLower().Trim() == name.ToLower().Trim());
         }
 
         public bool CreateFilm(Film film)
@@ -49,12 +49,17 @@ namespace ApiFilms.Repository
 
         public ICollection<Film> GetFilmsInCategory(int categoryId)
         {
-            throw new NotImplementedException();
+            return _db.Film.Where(x => x.CategoryId == categoryId).ToList();
         }
 
-        public IEnumerable<Film> SearchFilm(int name)
+        public IEnumerable<Film> SearchFilm(string name)
         {
-            throw new NotImplementedException();
+            IQueryable<Film> query = _db.Film;
+            if (!string.IsNullOrEmpty(name))
+            {
+                query = query.Where(x => x.Name.ToLower().Contains(name.ToString().ToLower()) || x.Description.ToLower().Contains(name.ToString().ToLower()));
+            }
+            return query.ToList();
         }
 
         public Film GetFilm(int filmId)

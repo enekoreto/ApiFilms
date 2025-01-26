@@ -6,7 +6,7 @@ namespace ApiFilms.Repository.IRepository
     {
         ICollection<Film> GetFilms(); //all categories
         ICollection<Film> GetFilmsInCategory(int categoryId);
-        IEnumerable<Film> SearchFilm(int name);
+        IEnumerable<Film> SearchFilm(string name);
         Film GetFilm(int filmId); //one individual category
         bool ExistsFilm(int id);
         bool ExistsFilm(string name);
