@@ -10,5 +10,7 @@ public class FilmMapper : Profile //Automapper makes the communication and DTO m
     {
         CreateMap<Category, CategoryDTO>().ReverseMap(); //The connection can be between both in both directions
         CreateMap<Category, CreateCategoryDTO>().ReverseMap();
+        CreateMap<Film, FilmDTO>().ReverseMap();
+        CreateMap<Film, CreateFilmDTO>().ReverseMap();
     }
 }
