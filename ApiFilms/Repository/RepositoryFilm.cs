@@ -36,12 +36,6 @@ namespace ApiFilms.Repository
             return _db.Film.Any(x => x.Id == id); //x represents the category
         }
 
-        public bool ExistsCategory(string Name)
-        {
-            bool value = _db.Category.Any(x => x.Name.ToLower().Trim() == Name.ToLower().Trim());
-            return value;
-        }
-
         public ICollection<Film> GetFilms()
         {
             return _db.Film.OrderBy(c => c.Name).ToList();

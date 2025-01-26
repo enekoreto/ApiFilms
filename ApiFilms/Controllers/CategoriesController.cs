@@ -9,12 +9,12 @@ namespace ApiFilms.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CategoryController : ControllerBase
+    public class CategoriesController : ControllerBase
     {
         private readonly IRespositoryCategory _ctRepo;
         private readonly IMapper _mapper;
 
-        public CategoryController(IRespositoryCategory ctRepo, IMapper mapper)
+        public CategoriesController(IRespositoryCategory ctRepo, IMapper mapper)
         {
             _ctRepo = ctRepo;
             _mapper = mapper;
