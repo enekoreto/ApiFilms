@@ -61,6 +61,12 @@ namespace ApiFilms.Repository
             return _db.Film.FirstOrDefault(x => x.Id == filmId);
         }
 
+        public bool DeleteFilm(int filmId)
+        {
+            _db.Film.Remove(GetFilm(filmId));
+            return Save();
+        }
+
         public bool Save()
         {
             return _db.SaveChanges() > 0;
@@ -69,7 +75,13 @@ namespace ApiFilms.Repository
         public bool UpdateFilm(Film film)
         {
             film.CreatedDate = DateTime.Now;
-            _db.Film.Update(film);
+            //Fixing the PUT and PATCH problem
+            var existingFilm = _db.Film.Find(film.Id);
+            if(existingFilm != null)
+                _db.Entry(existingFilm).CurrentValues.SetValues(film);
+            else
+                _db.Film.Update(film);
+            
             return Save();
         }
     }

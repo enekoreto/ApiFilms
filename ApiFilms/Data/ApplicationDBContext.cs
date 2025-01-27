@@ -10,8 +10,9 @@ namespace ApiFilms.Data
             
         }
 
-        //All models need to be passed here
+        //All models need to be declared here
         public DbSet<Category> Category { get; set; }
         public DbSet<Film> Film { get; set; }
+        public DbSet<User> User { get; set; }
     }
 }
