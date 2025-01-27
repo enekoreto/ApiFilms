@@ -16,6 +16,7 @@ builder.Services.AddSwaggerGen();
 
 // Add repository
 builder.Services.AddScoped<IRespositoryCategory, RepositoryCategory>();
+builder.Services.AddScoped<IRespositoryFilm, RepositoryFilm>();
 
 //Add AutoMapper
 builder.Services.AddAutoMapper(typeof(FilmMapper));

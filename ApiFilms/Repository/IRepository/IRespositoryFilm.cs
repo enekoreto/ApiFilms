@@ -12,7 +12,7 @@ namespace ApiFilms.Repository.IRepository
         bool ExistsFilm(string name);
         bool CreateFilm(Film film);
         bool UpdateFilm(Film film);
-        bool DeleteFilm(Film filmId);
+        bool DeleteFilm(int filmId);
         bool Save();
     }
 }

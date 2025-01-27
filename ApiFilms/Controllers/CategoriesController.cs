@@ -152,7 +152,7 @@ namespace ApiFilms.Controllers
             return NoContent(); //NoContent is returned when an update fails
         }
         
-        [HttpDelete("{categoryId:int}", Name = "UpdatePutCategory")] //patch is used to update the data
+        [HttpDelete("{categoryId:int}", Name = "DeleteCategory")] //patch is used to update the data
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
