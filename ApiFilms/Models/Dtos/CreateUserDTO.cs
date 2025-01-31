@@ -11,4 +11,6 @@ public class CreateUserDTO
     public string Name { get; set; }
     [Required(ErrorMessage = "The field {2} is required")]
     public string Password { get; set; }
+    [Required(ErrorMessage = "The field {3} is required")]
+    public string Role { get; set; }
 }

@@ -9,6 +9,6 @@ namespace ApiFilms.Repository.IRepository
         User GetUser(int userId); //One individual user
         bool IsUniqueUser(string user);
         Task<UserLogInAnswerDTO> LogIn(LogInUserDTO logInUserDTO); //asynchronous method that returns a task
-        Task<UserDataDTO> Register(CreateUserDTO createUserDTO);
+        Task<User> Register(CreateUserDTO createUserDTO);
     }
 }
